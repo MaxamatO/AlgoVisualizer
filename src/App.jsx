@@ -1,28 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
+const PRIMARY_COLOR = 'turquoise';
+
+const SECONDARY_COLOR = 'red';
+
 function App() {
-  
-  const [numbers, setNumbers] = useState([]);
-  const [isSorted, setIsSorted] = useState(false);
-
-  const refreshApp = () => {
-    setIsSorted(isSorted);
-    setNumbers(numbers)
-  }
-
-  useEffect(() => {
-    refreshApp();
-  }, [numbers])
-
-  const generateNew = () => {
-    let rects = document.getElementsByClassName("rect");
-        for(let r=0; r<rects.length; r++){
-          rects[r].style.borderColor = "blue";
-        }
-        setIsSorted(false)
-    return setNumbers(generateRandomNumbers());
-  }
   
   const shuffle = (array) => {
     var tmp, current, top = array.length;
@@ -36,60 +19,56 @@ function App() {
   }
 
   const generateRandomNumbers = () => {
-    for (var a=[],i=0;i<50;++i) a[i]=i; 
+    for (var a=[],i=0;i<100;++i) a[i]=i; 
     return shuffle(a);
   }
 
-  const bubblesort = (nums) => {
-      let i = 0;
-      let inMemory;
-      for (var ids=[],x=0;x<nums.length;++x) ids[x]=x; 
-      for(i=nums.length; i>0; i--){
-          for(let j=0; j<i; j++){
-            if(nums[j]>nums[j+1]){
-              inMemory = nums[j+1]
-              nums[j+1]=nums[j]
-              nums[j]=inMemory;
-            }
+  const [numbers, setNumbers] = useState(generateRandomNumbers());
 
-        }
-        let rects = document.getElementsByClassName("rect");
+  const generateNew = () => {
+    let rects = document.getElementsByClassName("rect");
         for(let r=0; r<rects.length; r++){
-          rects[r].style.borderColor = "red";
+          rects[r].style.borderColor = "blue";
         }
-      }
-      setNumbers(nums)
-      setIsSorted(true);
-      return numbers;
-
+    return setNumbers(generateRandomNumbers());
   }
-  function BubbleSort(){
-    if(!isSorted){
-      let array = generateRandomNumbers();
-      return array.map((number, index) => {
-        return (
-          <div className='rect' id={index} key={number} style={{height:number*3+"px"}}>
-          </div>
-        )
+  const bubblesort = (numberss) => {
+      let inMemory;
+      let ids = [];
+      let nums = [...numberss];
+      
+      for(let i = 0; i<nums.length; i++){
+        ids.push(i);
       }
-      );
-    }
-    console.log(numbers);
-    return(
-      numbers.map((number) => {
-        return (
-          <div className='rect' key={number} style={{height:number*3+"px"}}>
-          </div>
-        ) 
-      })
-    )
-}
+      console.log(ids);
+      console.log(nums);
+      for(let i=nums.length; i>0; i--){
+        setTimeout(() => {
+          for(let j=0; j<nums.length; j++){
+              if(nums[j]>nums[j+1]){
+                inMemory = nums[j+1]
+                nums[j+1]=nums[j]
+                nums[j]=inMemory;
+                const bars = document.getElementsByClassName("rect");
+                bars[j].style.height = `${nums[j]*3}px`
+                bars[j+1].style.height = `${nums[j+1]*3}px`
+              }
+          }
+        }, (i)*100) 
+      }
+      
+  }
   return (
     <div className='main-layout'>
-      <button onClick={() => {bubblesort(generateRandomNumbers())}}>Bubble sort</button>
-      <button onClick={() => {generateNew()}}>Generate new</button>
+      <button onClick={() => {bubblesort(numbers)}}>Bubble sort</button>
       <div className='main-display'>
-        <BubbleSort></BubbleSort>
+      {numbers.map((number, index) => {
+
+        return (
+          <div className='rect' key={index} style={{height:number*3+"px", borderColor: PRIMARY_COLOR}}>
+          </div>
+        ) 
+      })}
       </div>
     </div>
   );
