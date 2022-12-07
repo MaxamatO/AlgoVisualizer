@@ -1,19 +1,17 @@
-let numbers = [4, 2, 8, 6, 1]
 
-const bubblesort = (numbers) => {
-    let iteration = numbers.length;
-    let inMemory;
-    console.log(numbers);
-
-    for(let i=0; i<numbers.length-1; i++){
-        console.log("Comparing: " + numbers[i] +"-"+numbers[i+1]);
-        if(numbers[i]>numbers[i+1]){
-        inMemory = numbers[i+1]
-        numbers[i+1]=numbers[i]
-        numbers[i]=inMemory;
-        }
-        console.log(numbers);
-    }
+export const dobubblesort = (mainarray) => {
+    let array = [...mainarray];
+    let animations = []
+    for(let i=array.length; i>0; i--){
+          for(let j=0; j<array.length; j++){
+              if(array[j]>array[j+1]){
+                animations.push([j, j+1])
+                const inMemory = array[j+1]
+                array[j+1]=array[j]
+                array[j]=inMemory;
+                }
+          }
+      }
+    return animations;
 }
-bubblesort(numbers);
     
