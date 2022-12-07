@@ -13,6 +13,7 @@ export default class App extends React.Component {
     this.state = {
       numbers: [],
     }
+    
   }
 
   componentDidMount(){
@@ -37,7 +38,7 @@ export default class App extends React.Component {
   }
   generateNew() {
     const array = [];
-    for(let i = 0; i<200; i++){
+    for(let i = 0; i<100; i++){
       array.push(this.generateRandomNumbers(1, 200));
     }
     return array;
@@ -45,6 +46,11 @@ export default class App extends React.Component {
 
   bubblesort(){
     let animations = dobubblesort(this.state.numbers);
+    const buttons = document.getElementsByTagName("button");
+    console.log(animations.length);
+    for(let i = 0; i<buttons.length; i++){
+      buttons[i].disabled = true;
+    }
     for(let i=0; i<animations.length; i++){
       const bars = document.getElementsByClassName("rect");
       const [firstBar, secondBar] = animations[i];
@@ -62,13 +68,18 @@ export default class App extends React.Component {
         }, 10)
       }, i*10)
     }
+   setTimeout(() => {
+    for(let i = 0; i<buttons.length; i++){
+      buttons[i].disabled = false;
+    }
+   }, animations.length*10)
   }
   render(){
     const {numbers} = this.state;
     return (
       <div className='main-layout'>
         <button onClick={() => {this.bubblesort()}}>Bubble sort</button>
-        <button onClick={() => {this.generateNew()}}>New Array</button>
+        <button onClick={() => {this.componentDidMount()}} >New Array</button>
         <div className='main-display'>
         {numbers.map((number, index) => {
           return (
