@@ -1,6 +1,7 @@
 import './App.css';
 import { dobubblesort } from './BubbleSort';
 import React from 'react';
+import { createRef } from 'react';
 
 const PRIMARY_COLOR = 'turquoise';
 
@@ -13,14 +14,14 @@ export default class App extends React.Component {
     this.state = {
       numbers: [],
     }
+    this.sorted = createRef();
     
   }
-
+  
   componentDidMount(){
     this.setState({numbers: this.generateNew()});
+    this.sorted = false;
   }
-  
-  
 
   shuffle (array){
     var tmp, current, top = array.length;
@@ -45,6 +46,9 @@ export default class App extends React.Component {
   }
 
   bubblesort(){
+    if(this.sorted){
+      return;
+    }
     let animations = dobubblesort(this.state.numbers);
     const buttons = document.getElementsByTagName("button");
     console.log(animations.length);
@@ -72,6 +76,7 @@ export default class App extends React.Component {
     for(let i = 0; i<buttons.length; i++){
       buttons[i].disabled = false;
     }
+    this.sorted = true;
    }, animations.length*10)
   }
   render(){

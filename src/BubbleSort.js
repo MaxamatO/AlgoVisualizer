@@ -3,7 +3,7 @@ export const dobubblesort = (mainarray) => {
     let array = [...mainarray];
     let animations = []
     for(let i=array.length; i>0; i--){
-          for(let j=0; j<array.length; j++){
+          for(let j=0; j<i; j++){
               if(array[j]>array[j+1]){
                 animations.push([j, j+1])
                 const inMemory = array[j+1]
@@ -14,4 +14,5 @@ export const dobubblesort = (mainarray) => {
       }
     return animations;
 }
+
     
