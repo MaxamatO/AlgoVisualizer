@@ -40,7 +40,7 @@ export default class App extends React.Component {
   generateNew() {
     const array = [];
     for(let i = 0; i<100; i++){
-      array.push(this.generateRandomNumbers(1, 200));
+      array.push(this.generateRandomNumbers(2, 200));
     }
     return array;
   }
@@ -49,9 +49,9 @@ export default class App extends React.Component {
     if(this.sorted){
       return;
     }
-    let animations = dobubblesort(this.state.numbers);
+    let anim = dobubblesort(this.state.numbers)[1]
+    let animations = anim;
     const buttons = document.getElementsByTagName("button");
-    console.log(animations.length);
     for(let i = 0; i<buttons.length; i++){
       buttons[i].disabled = true;
     }
@@ -61,7 +61,7 @@ export default class App extends React.Component {
       setTimeout(() => {
         const firstBarStyle = bars[firstBar].style;
         const secondBarStyle = bars[secondBar].style;
-        firstBarStyle.borderColor = "red";
+        firstBarStyle.borderColor = "pink";
         secondBarStyle.borderColor = "red";
         const firstHeight = firstBarStyle.height;
         firstBarStyle.height = secondBarStyle.height;
@@ -69,21 +69,29 @@ export default class App extends React.Component {
         setTimeout(() => {
           firstBarStyle.borderColor = PRIMARY_COLOR;
           secondBarStyle.borderColor = PRIMARY_COLOR;
-        }, 10)
-      }, i*10)
+        }, 20)
+      }, i*20)
     }
    setTimeout(() => {
     for(let i = 0; i<buttons.length; i++){
       buttons[i].disabled = false;
     }
     this.sorted = true;
-   }, animations.length*10)
+   }, animations.length*20)
   }
+
+  // To implement
+  // quicksort(){
+  //   let array = partition(this.state.numbers, 0, this.state.numbers.length-1);
+  //   console.log(array);
+  // }
+
   render(){
     const {numbers} = this.state;
     return (
       <div className='main-layout'>
-        <button onClick={() => {this.bubblesort()}}>Bubble sort</button>
+        <button onClick={() => {this.bubblesort()}}>Bubblesort</button>
+        {/* <button disabled={true} onClick={() => {this.quicksort()}} >Quicksort</button> */}
         <button onClick={() => {this.componentDidMount()}} >New Array</button>
         <div className='main-display'>
         {numbers.map((number, index) => {
