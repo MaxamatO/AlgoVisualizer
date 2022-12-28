@@ -90,9 +90,11 @@ export default class App extends React.Component {
     const {numbers} = this.state;
     return (
       <div className='main-layout'>
+        <div className="menu">
         <button onClick={() => {this.bubblesort()}}>Bubblesort</button>
         {/* <button disabled={true} onClick={() => {this.quicksort()}} >Quicksort</button> */}
         <button onClick={() => {this.componentDidMount()}} >New Array</button>
+        </div>
         <div className='main-display'>
         {numbers.map((number, index) => {
           return (
