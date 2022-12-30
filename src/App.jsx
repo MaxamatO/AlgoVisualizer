@@ -1,56 +1,37 @@
 import './App.css';
 import { dobubblesort } from './BubbleSort';
 import React from 'react';
-import { createRef } from 'react';
+import { useRef } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const PRIMARY_COLOR = 'turquoise';
 
 
-export default class App extends React.Component {
+const App =() => {
+  const [numbers, setNumbers] = useState([]);
+  let sorted = useRef(false);
 
-  constructor(props){
-    super(props);
+  useEffect(() => {
+    setNumbers(generateNew());
+    // eslint-disable-next-line
+    }, []);
 
-    this.state = {
-      numbers: [],
-    }
-    this.sorted = createRef();
-    
-  }
-  
-  componentDidMount(){
-    this.setState({numbers: this.generateNew()});
-    this.sorted = false;
-  }
-
-  shuffle (array){
-    var tmp, current, top = array.length;
-    if(top) while(--top) {
-      current = Math.floor(Math.random() * (top + 1));
-      tmp = array[current];
-      array[current] = array[top];
-      array[top] = tmp;
-    }
-    return array;
-  }
-
-  generateRandomNumbers (min, max){
+  const generateRandomNumbers = (min, max) =>{
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  generateNew() {
+  const generateNew = () => {
     const array = [];
     for(let i = 0; i<100; i++){
-      array.push(this.generateRandomNumbers(2, 200));
+      array.push(generateRandomNumbers(2, 200));
     }
     return array;
   }
 
-  bubblesort(){
-    if(this.sorted){
-      return;
-    }
-    let anim = dobubblesort(this.state.numbers)[1]
-    let animations = anim;
+  const bubblesort = (numbers) =>{
+    if(sorted === true) return;   
+    let animations = dobubblesort(numbers)[1];
+    console.log(animations);
     const buttons = document.getElementsByTagName("button");
     for(let i = 0; i<buttons.length; i++){
       buttons[i].disabled = true;
@@ -76,34 +57,35 @@ export default class App extends React.Component {
     for(let i = 0; i<buttons.length; i++){
       buttons[i].disabled = false;
     }
-    this.sorted = true;
+    sorted = true;
    }, animations.length*20)
   }
 
   // To implement
   // quicksort(){
-  //   let array = partition(this.state.numbers, 0, this.state.numbers.length-1);
+  //   let array = partition(numbers, 0, numbers.length-1);
   //   console.log(array);
   // }
 
-  render(){
-    const {numbers} = this.state;
-    return (
-      <div className='main-layout'>
-        <div className="menu">
-        <button onClick={() => {this.bubblesort()}}>Bubblesort</button>
-        {/* <button disabled={true} onClick={() => {this.quicksort()}} >Quicksort</button> */}
-        <button onClick={() => {this.componentDidMount()}} >New Array</button>
-        </div>
-        <div className='main-display'>
-        {numbers.map((number, index) => {
-          return (
-            <div className='rect' key={index} style={{height:number*2+"px", borderColor: PRIMARY_COLOR}}>
-            </div>
-          ) 
-        })}
-        </div>
+  
+  return (
+    <div className='main-layout'>
+      <div className="menu">
+      <button onClick={() => {bubblesort(numbers)}}>Bubblesort</button>
+      {/* <button disabled={true} onClick={() => {quicksort()}} >Quicksort</button> */}
+      <button onClick={() => {setNumbers(generateNew())}} >New Array</button>
       </div>
-    );
-  }
+      <div className='main-display'>
+      {numbers.map((number, index) => {
+        return (
+          <div className='rect' key={index} style={{height:number*2+"px", borderColor: PRIMARY_COLOR}}>
+          </div>
+        ) 
+      })}
+      </div>
+    </div>
+  );
+  
 };
+
+export default App;
