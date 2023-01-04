@@ -4,7 +4,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
+import {mergeSortTopDown} from './Mergesort'
 const PRIMARY_COLOR = 'turquoise';
 
 
@@ -61,6 +61,10 @@ const App =() => {
    }, animations.length*20)
   }
 
+  const mergesort = (array) => {
+    console.log(mergeSortTopDown(array));
+  }
+
   // To implement
   // quicksort(){
   //   let array = partition(numbers, 0, numbers.length-1);
@@ -71,8 +75,9 @@ const App =() => {
   return (
     <div className='main-layout'>
       <div className="menu">
-      <button onClick={() => {bubblesort(numbers)}}>Bubblesort</button>
+      <button onClick={() => {bubblesort(numbers)}}>Bubble Sort</button>
       {/* <button disabled={true} onClick={() => {quicksort()}} >Quicksort</button> */}
+      <button onClick={() => {mergesort(numbers)}} >Merge Sort</button>
       <button onClick={() => {setNumbers(generateNew())}} >New Array</button>
       </div>
       <div className='main-display'>
