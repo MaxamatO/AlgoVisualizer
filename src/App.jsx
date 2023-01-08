@@ -4,7 +4,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import {mergeSortTopDown} from './Mergesort'
+import {getMergeSortAnimations} from './Mergesort'
 const PRIMARY_COLOR = 'turquoise';
 
 
@@ -62,7 +62,7 @@ const App =() => {
   }
 
   const mergesort = (array) => {
-    console.log(mergeSortTopDown(array));
+    console.log(getMergeSortAnimations(array));
   }
 
   // To implement
