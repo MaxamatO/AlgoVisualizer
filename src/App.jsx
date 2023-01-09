@@ -62,6 +62,24 @@ const App =() => {
   }
 
   const mergesort = (array) => {
+    let animations = getMergeSortAnimations(array);
+    for(let i=0; i<animations.length; i++){
+      const bars = document.getElementsByClassName("rect");
+      const [firstBar, secondBar] = animations[i];
+      setTimeout(() => {
+        const firstBarStyle = bars[firstBar].style;
+        const secondBarStyle = bars[secondBar].style;
+        firstBarStyle.borderColor = "pink";
+        secondBarStyle.borderColor = "red";
+        const firstHeight = firstBarStyle.height;
+        firstBarStyle.height = secondBarStyle.height;
+        secondBarStyle.height = firstHeight;
+        setTimeout(() => {
+          firstBarStyle.borderColor = PRIMARY_COLOR;
+          secondBarStyle.borderColor = PRIMARY_COLOR;
+        }, 30)
+      }, i*30)
+    }
     console.log(getMergeSortAnimations(array));
   }
 

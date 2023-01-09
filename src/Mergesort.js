@@ -27,15 +27,19 @@ const mergeSort = (mainArray, startIndex, middleIndex, endIndex, auxArray, anima
 
     while(i <= middleIndex && j <= endIndex){
         if(auxArray[i] <= auxArray[j]){
+            animations.push([k, i])
             mainArray[k++] = auxArray[i++]
         } else {
+            animations.push([k,j])
             mainArray[k++] = auxArray[j++]
         }
     }
     while(i <= middleIndex){
+        animations.push([k,i])
         mainArray[k++] = auxArray[i++];
     }
     while(j<=endIndex){
+        animations.push([k,j])
         mainArray[k++] = auxArray[j++]
     }
     console.log(mainArray);
