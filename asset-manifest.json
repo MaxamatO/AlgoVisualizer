@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/AlgoVisualizer/static/css/main.9d96a82a.css",
-    "main.js": "/AlgoVisualizer/static/js/main.7921484a.js",
+    "main.js": "/AlgoVisualizer/static/js/main.b275d0d1.js",
     "index.html": "/AlgoVisualizer/index.html",
     "main.9d96a82a.css.map": "/AlgoVisualizer/static/css/main.9d96a82a.css.map",
-    "main.7921484a.js.map": "/AlgoVisualizer/static/js/main.7921484a.js.map"
+    "main.b275d0d1.js.map": "/AlgoVisualizer/static/js/main.b275d0d1.js.map"
   },
   "entrypoints": [
     "static/css/main.9d96a82a.css",
-    "static/js/main.7921484a.js"
+    "static/js/main.b275d0d1.js"
   ]
 }
